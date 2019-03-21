@@ -28,8 +28,8 @@ public class E496 {
                 b = nums2[i + 1];
                 bplus = map.get(b);
 
-                flag = false;
                 do {
+                    flag = false; //move the flag into while block for modifying flag in each branch
                     if (a < b) {
                         aplus = b;
                     } else {
