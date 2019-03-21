@@ -21,15 +21,16 @@ public class E496 {
             }
             map.put(nums2[nums2.length - 1], -1);
 
+            //aplus should be init because it doesn't evaluated in every branch
             int a, b, aplus = -1, bplus;
             boolean flag;
             for (int i = nums2.length - 2; i >= 0; i--) {
                 a = nums2[i];
                 b = nums2[i + 1];
-                bplus = map.get(b);
 
                 do {
                     flag = false; //move the flag into while block for modifying flag in each branch
+                    bplus = map.get(b); //move the bplus into while block for matching up the change of b
                     if (a < b) {
                         aplus = b;
                     } else {
