@@ -3,6 +3,7 @@ package zjzs.cubicant.leetcodetraining.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * invoke the public method of innerClass Solution
@@ -19,7 +20,7 @@ public class LeetCodeUtil {
 
             //3.reflect the innerClass object
             //outerClass$innerClass
-            Class<?> innerClass = Class.forName(className+"$Solution");
+            Class<?> innerClass = Class.forName(className + "$Solution");
             //innerClass constructor -> innerClass(OutClass outClass)
             Constructor<?> innerClassConstructor = innerClass.getDeclaredConstructor(outerClass);
             //different package can't access
@@ -32,6 +33,25 @@ public class LeetCodeUtil {
             Object result = method.invoke(innerClassObject, args);
 
             //5.output the result
+            if (result.getClass().isArray()) {
+                if (result instanceof long[]) {
+                    result = Arrays.toString((long[]) result);
+                } else if (result instanceof int[]) {
+                    result = Arrays.toString((int[]) result);
+                } else if (result instanceof short[]) {
+                    result = Arrays.toString((short[]) result);
+                } else if (result instanceof char[]) {
+                    result = Arrays.toString((char[]) result);
+                } else if (result instanceof byte[]) {
+                    result = Arrays.toString((byte[]) result);
+                } else if (result instanceof boolean[]) {
+                    result = Arrays.toString((boolean[]) result);
+                } else if (result instanceof float[]) {
+                    result = Arrays.toString((float[]) result);
+                } else if (result instanceof double[]) {
+                    result = Arrays.toString((double[]) result);
+                }
+            }
             System.out.println(result);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();
