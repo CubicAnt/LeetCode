@@ -10,6 +10,7 @@ public class N921 {
         LeetCodeUtil.execute("(((");
         LeetCodeUtil.execute("()");
         LeetCodeUtil.execute("()))((");
+        LeetCodeUtil.execute("()()");
     }
 
     class Solution {
@@ -19,7 +20,8 @@ public class N921 {
             }
 
             LinkedList<Character> stack = new LinkedList<>();
-            int addSum = 0, leftSum = 0;
+            //add storedLeft to avoid repeat minus leftSum in such case "()()"
+            int addSum = 0, leftSum = 0, storedLeft = 0;
             for (char c : S.toCharArray()) {
                 if (c == '(') {
                     ++leftSum;
@@ -30,12 +32,17 @@ public class N921 {
             while (!stack.isEmpty()) {
                 switch (stack.pop()) {
                     case '(':
-                        --leftSum;
+                        if (storedLeft > 0) {
+                            --storedLeft;
+                        } else {
+                            --leftSum;
+                        }
                         ++addSum;
                         break;
                     case ')':
                         if (leftSum > 0) {
                             --leftSum;
+                            ++storedLeft;
                             --addSum;
                         } else {
                             ++addSum;
