@@ -1,5 +1,7 @@
 package zjzs.cubicant.leetcodetraining.util;
 
+import zjzs.cubicant.leetcodetraining.util.model.TreeNode;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,8 +12,9 @@ import java.util.Arrays;
  */
 public class LeetCodeUtil {
     public static void execute(Object... args) {
-        //1.get the className who invoke this method
-        String className = Thread.currentThread().getStackTrace()[2].getClassName();
+        //1.get the className who is in the bottom of the stack
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        String className = stackTraceElements[stackTraceElements.length - 1].getClassName();
 
         try {
             //2.reflect the outClass object
@@ -56,5 +59,25 @@ public class LeetCodeUtil {
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void executeWithTree(Integer[] treeValList) {
+        TreeNode root = (treeValList == null || treeValList.length == 0) ? null : createTree(treeValList, 0);
+        execute(root);
+    }
+
+    private static TreeNode createTree(Integer[] treeValList, int start) {
+        if (start >= treeValList.length) {
+            return null;
+        }
+
+        if (treeValList[start] == null) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(treeValList[start]);
+        root.left = createTree(treeValList, start + 1);
+        root.right = createTree(treeValList, start + 2);
+        return root;
     }
 }
