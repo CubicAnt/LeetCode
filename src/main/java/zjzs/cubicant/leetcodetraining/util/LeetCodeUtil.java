@@ -62,22 +62,34 @@ public class LeetCodeUtil {
     }
 
     public static void executeWithTree(Integer[] treeValList) {
-        TreeNode root = (treeValList == null || treeValList.length == 0) ? null : createTree(treeValList, 0);
-        execute(root);
+        execute(createTree(treeValList));
     }
 
-    private static TreeNode createTree(Integer[] treeValList, int start) {
-        if (start >= treeValList.length) {
+    //amend createTree method, now suits every case even if null is ignored
+    public static TreeNode createTree(Integer[] treeValList) {
+        if (treeValList == null || treeValList.length == 0 || treeValList[0] == null) {
             return null;
         }
 
-        if (treeValList[start] == null) {
-            return null;
+        TreeNode[] tree = new TreeNode[treeValList.length];
+        tree[0] = new TreeNode(treeValList[0]);
+        boolean isLeft = true;
+        int index;
+
+        for (int i = 1; i < treeValList.length; ++i) {
+            tree[i] = treeValList[i] == null ? null : new TreeNode(treeValList[i]);
+            index = i;
+            while (tree[index / 2 - (isLeft ? 0 : 1)] == null) {
+                index += 2;
+            }
+            if (isLeft) {
+                tree[index / 2].left = tree[i];
+            } else {
+                tree[index / 2 - 1].right = tree[i];
+            }
+            isLeft = !isLeft;
         }
 
-        TreeNode root = new TreeNode(treeValList[start]);
-        root.left = createTree(treeValList, start + 1);
-        root.right = createTree(treeValList, start + 2);
-        return root;
+        return tree[0];
     }
 }
