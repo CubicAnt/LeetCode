@@ -15,6 +15,10 @@ public class N503 {
             int[] result = new int[length];
             int[] next = new int[length];
 
+            if (length == 0) { //avoid j OutOfArrayBounds
+                return result;
+            }
+
             for (int i = 0; i < length - 1; ++i) {
                 if (nums[i] > nums[j]) {
                     result[j] = nums[i];
