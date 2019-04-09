@@ -26,8 +26,8 @@ public class N331 {
                 return true;
             }
 
-            for (String split : splits) {
-                switch (split) {
+            for (int i = 0; i < splits.length; ++i) {
+                switch (splits[i]) {
                     case "#":
                         if (stack.isEmpty()) {
                             return false;
@@ -42,9 +42,14 @@ public class N331 {
                                 break;
                             }
                         }
+
+                        //test case: stack is empty but string is not at end after pop
+                        if (stack.isEmpty() && i < splits.length - 1) {
+                            return false;
+                        }
                         break;
                     default:
-                        stack.push(new Node(split));
+                        stack.push(new Node(splits[i]));
                         break;
                 }
             }
