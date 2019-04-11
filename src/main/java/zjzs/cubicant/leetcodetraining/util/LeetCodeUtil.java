@@ -1,5 +1,6 @@
 package zjzs.cubicant.leetcodetraining.util;
 
+import zjzs.cubicant.leetcodetraining.util.model.ListNode;
 import zjzs.cubicant.leetcodetraining.util.model.TreeNode;
 
 import java.lang.reflect.Constructor;
@@ -65,6 +66,10 @@ public class LeetCodeUtil {
         execute(createTree(treeValList));
     }
 
+    public static void executeWithList(Integer[] valList) {
+        execute(createList(valList));
+    }
+
     //amend createTree method, now suits every case even if null is ignored
     public static TreeNode createTree(Integer[] treeValList) {
         if (treeValList == null || treeValList.length == 0 || treeValList[0] == null) {
@@ -91,5 +96,20 @@ public class LeetCodeUtil {
         }
 
         return tree[0];
+    }
+
+    public static ListNode createList(Integer[] valList) {
+        if (valList == null || valList.length == 0) {
+            return null;
+        }
+
+        ListNode head = new ListNode(valList[0]);
+        ListNode cur = head;
+        for (int i = 1; i < valList.length; ++i) {
+            cur.next = new ListNode(valList[i]);
+            cur = cur.next;
+        }
+
+        return head;
     }
 }
