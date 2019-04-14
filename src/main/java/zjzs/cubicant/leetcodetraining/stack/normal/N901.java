@@ -16,6 +16,8 @@ public class N901 {
     class StockSpanner {
 
         private List<Stock> list = new ArrayList<>();
+        //record maxIndex to fast skip continue small number like such case (4,5,6,0,0,0,0,0,8)
+        private int maxIndex;
 
         public StockSpanner() {
 
@@ -23,16 +25,22 @@ public class N901 {
 
         public int next(int price) {
             Stock stock = new Stock();
-            if (list.size() == 0) {
+            int size = list.size();
+            if (size == 0) {
                 stock.span = 1;
             } else {
-                if (price >= list.get(list.size() - 1).price) {
-                    int index = list.size() - 1;
+                if (price >= list.get(size - 1).price) {
+                    int index = size - 1;
                     stock.span = 1;
+                    if (price >= list.get(maxIndex).price) {
+                        stock.span += index - maxIndex;
+                        index = maxIndex;
+                    }
                     do {
                         stock.span += list.get(index).span;
                         index -= list.get(index).span;
                     } while (index >= 0 && price >= list.get(index).price);
+                    maxIndex = size;
                 } else {
                     stock.span = 1;
                 }
