@@ -112,4 +112,11 @@ public class LeetCodeUtil {
 
         return head;
     }
+
+    public static void calculateTime(Runnable task) {
+        long startTime = System.currentTimeMillis();
+        task.run();
+        long endTime = System.currentTimeMillis();
+        System.out.println("time: " + (endTime - startTime) + "(ms)");
+    }
 }
