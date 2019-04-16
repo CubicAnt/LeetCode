@@ -8,6 +8,7 @@ import java.util.LinkedList;
 public class N853 {
     public static void main(String[] args) {
         LeetCodeUtil.execute(12, new int[]{10,8,0,5,3}, new int[]{2,4,1,1,3});
+        LeetCodeUtil.execute(10, new int[]{0,4,2}, new int[]{2,1,3});
     }
 
     class Solution {
@@ -26,8 +27,17 @@ public class N853 {
             stack.push(cars[0]);
             Car top;
             for (int i = 1; i < position.length; ++i) {
-                if (stack.peek().slower(cars[i], target)) {
-                    stack.push(cars[i]);
+                while (true) {
+                    if (stack.peek().slower(cars[i], target)) {
+                        stack.push(cars[i]);
+                        break;
+                    } else {
+                        stack.pop();
+                        if (stack.isEmpty()) {
+                            stack.push(cars[i]);
+                            break;
+                        }
+                    }
                 }
             }
 
