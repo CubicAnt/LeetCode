@@ -25,7 +25,6 @@ public class N853 {
 
             LinkedList<Car> stack = new LinkedList<>();
             stack.push(cars[0]);
-            Car top;
             for (int i = 1; i < position.length; ++i) {
                 while (true) {
                     if (stack.peek().slower(cars[i], target)) {
@@ -56,7 +55,7 @@ public class N853 {
                 if (car.speed >= speed) {
                     return true;
                 } else {
-                    return (long)((car.position - position) * car.speed) > (long)((target - car.position) * (speed - car.speed));
+                    return (long)(car.position - position) * car.speed > (long)(target - car.position) * (speed - car.speed);
                 }
             }
         }
