@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class N907 {
     public static void main(String[] args) {
         LeetCodeUtil.execute((Object) new int[]{3,1,2,4});
+        LeetCodeUtil.execute((Object) new int[]{97,61,59,45});
     }
 
     class Solution {
@@ -36,7 +37,7 @@ public class N907 {
                         break;
                     } else {
                         sum = (A[i] * top.coef + sum) % mod;
-                        ++coef;
+                        coef += top.coef;
                         stack.pop();
                     }
                 }
