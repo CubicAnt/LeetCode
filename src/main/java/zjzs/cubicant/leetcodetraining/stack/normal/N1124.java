@@ -19,6 +19,7 @@ public class N1124 {
                 preSums[i] = preSums[i - 1] + (hours[i - 1] > 8 ? 1 : -1);
             }
 
+            // stack stores index & index starts with 0
             LinkedList<Integer> stack = new LinkedList<>();
             for (int i = 0; i <= len; ++i) {
                 if (stack.isEmpty() || preSums[i] < preSums[stack.peek()]) {
@@ -26,6 +27,7 @@ public class N1124 {
                 }
             }
 
+            // use i > res optimize
             int res = 0;
             for (int i = len; i > res; --i) {
                 while (!stack.isEmpty() && preSums[stack.peek()] < preSums[i]) {
