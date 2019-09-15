@@ -20,14 +20,14 @@ public class N1124 {
             }
 
             LinkedList<Integer> stack = new LinkedList<>();
-            for (int i = 1; i <= len; ++i) {
-                if (stack.isEmpty() || preSums[i] < stack.peek()) {
+            for (int i = 0; i <= len; ++i) {
+                if (stack.isEmpty() || preSums[i] < preSums[stack.peek()]) {
                     stack.push(i);
                 }
             }
 
             int res = 0;
-            for (int i = len; i >= 1; --i) {
+            for (int i = len; i > res; --i) {
                 while (!stack.isEmpty() && preSums[stack.peek()] < preSums[i]) {
                     res = Math.max(res, i - stack.pop());
                 }
